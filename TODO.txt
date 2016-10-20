@@ -1,0 +1,12 @@
+* in sync
+- sometimes division np problem "v cannot be empty" : OK
+- graph of TEB is it good or not? improve it on the sides
+- ok detect sync time at y(t) ? more precise than at vl(t)
+
+* in register
+- find the good CRC
+- savemat gives weird result with nested dictionnaries
+
+* in realsample
+- do crc to pass step where they say not DF
+- save nested dictionary with savemat, possible?
