@@ -41,7 +41,6 @@ while( sync_time[i]+Ns*Fpe < len(vl)):
     rln = rl[delay_conv:len(rl):Fse]       # sampling step, sync time
 
     # Decision
-    print(len(rln))
     B_recep = ppm.decide(rln)   # decide
 
     # Filling the i column with frame
@@ -50,9 +49,11 @@ while( sync_time[i]+Ns*Fpe < len(vl)):
     # Adjusting cursor
     i=i+1
 
-# Compact bank (resize to only frames, clean unnecessary columns from majoration) & convert to int
+# Squashing bank (resize to only frames, clean unnecessary columns from majoration) & convert to int
 frames = frames[:,0:i].astype(int)
 
+print(len(frames[0]))
+"""
 ################################################
 # Processing : MAC LAYER
 ################################################
@@ -72,13 +73,12 @@ for i in range(len(frames[0])):
         else:
             dic[oaci] = frame.Reg()     # add new reg in dictionary
             frame.bit2reg(B,dic[oaci])
-
     else:
         print('crc not valid')
-
-
-
 
 ################################################
 # Observations
 ################################################
+
+print(dic)
+"""

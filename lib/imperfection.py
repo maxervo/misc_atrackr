@@ -63,6 +63,10 @@ def sync_time(yl):
     ratio = np.divide(num, denum)   #Others factors in formula not necessary, we only observe the trend
     similarity = ratio[delay_conv_pts:len(ratio)-delay_conv_pts] #here take into account beginning delay and end as well (error fix)
 
-    sync_index = detect_peaks(similarity, mpd=Ns*Fse)   # for only one : sync_index = np.argmax(similarity)
+    '''
+    plt.plot(np.arange(len(similarity)), similarity)
+    plt.show()'''
+
+    sync_index = detect_peaks(similarity, show=True, mpd=Ns*Fse)   # for only one : sync_index = first np.argmax(similarity)
 
     return sync_index

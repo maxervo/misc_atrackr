@@ -2,6 +2,7 @@ from config.imports import *
 from config.param import *
 
 from lib import misc
+from vendor import junzis_crc
 
 class Reg:
     address = 0
@@ -63,17 +64,13 @@ def bit2reg(B, reg): # B on 112 bits, excluding preamble, DF=17 normally
     reg.path += [ [reg.longitude, reg.latitude, reg.altitude] ]     # maybe better to use np.array for memory, but slow for concatenating
 
 def validate_crc(B):
-    # Problem CRC : DEBUG
-    crc24_func = crcmod.mkCrcFun(0x1FFF409, initCrc=0, rev=False)
-    #print('msg', misc.npToStr(B[0:88]))
-    #print('real crc is', crc24_func(bytes(misc.npToStr(B[0:88]), encoding="UTF-8")))
-    #print('crc extracted is', misc.npToDec(B[88:112]) )
+    crc_calc = junzis_crc.calc(misc.npToStr(B), encode=True)
+    crc_extrac = misc.npToStr( B[88:112] )
 
-    crc_calc = crc24_func(bytes(misc.npToStr(B[0:88]), encoding="UTF-8"))
-    crc_extrac = misc.npToDec( B[88:112] )
+    print("calc is ", crc_calc)
+    print("extrac is ", crc_extrac)
 
-    #return (crc_cal == crc_extrac)
-    return True
+    return (crc_calc == crc_extrac)
 
 
 def map_name(code):
